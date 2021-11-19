@@ -45,6 +45,7 @@ void populateVotes(int arrVotes[], char arrElectors[][25], char arrCandidates[][
             i--;
             continue;
         }
+
         displayArr(arrCandidates, sizeP, NULL, 0);
         printf("\nVote for the candidate by ID : ");
         scanf(" %d", &arrVotes[index]);
@@ -84,12 +85,12 @@ void main(){
     char arrElectors[sizeElec][25];
     int votesArr[sizeElec];
     //char** elecArr[3];
-
+    do {
     populateDatabase(arrCandidates, sizeCand, 0);
-
     populateDatabase(arrElectors, sizeElec, 1);
-
     populateVotes(votesArr, arrElectors, arrCandidates, sizeElec, sizeCand);
+
+    } while(firstTour)
 
     /*printf("\nAdresse of arr %d", &arr);
     elecArr[0] = &arr[0];
