@@ -13,15 +13,19 @@ void displayArr(char arr[][25], int size, int votes[], int pd){
         printf("\n%d \t|\t%s", i,arr[i]);
     }
 }
-int searchIndexCIN(char *str, char arr[][10], int size){
+int searchIndexCIN(char str[10], char arrElectors[][10], int size){
     for(int i = 0; i < size; i++){
-        if(!strcmp(str, arr[i])) return i;
+        printf("char : %s | arr[%d] : %s\n", str, i, arrElectors[i]);
+        if(!strcmp(str, arrElectors[i])) {
+            printf("\nComparaison result : %d", strcmp(str, arrElectors[i]));
+            return i;}
     }
     return -1;
 }
 void populateVotes(int arrVotes[], char arrElectors[][10], char arrCandidates[][25], int sizeE, int sizeP){
     getch();
     system("cls");
+    //displayArr(arrElectors, sizeE, NULL, 1);
     bool oneTimeVote[sizeE];
     int index, i =0;
     for(i ; i < sizeE; i++){oneTimeVote[i] = false;}
@@ -29,8 +33,8 @@ void populateVotes(int arrVotes[], char arrElectors[][10], char arrCandidates[][
     char str[10];
     for(i; i < sizeE ; i++){
        printf("\nEnter your CIN : ");
-       scanf(" %s", &str);
-       index = searchIndexCIN(str, arrElectors, sizeE);
+       scanf(" %s", str);
+       index = searchIndexCIN(&str, arrElectors, sizeE);
        if(index == -1) {
             printf("\nCIN not found. Try again");
             i--; //in case someone enters an invalid CIN the loop repeats the process of input so we need to decrement the i
@@ -41,7 +45,7 @@ void populateVotes(int arrVotes[], char arrElectors[][10], char arrCandidates[][
             i--;
             continue;
         }
-        displayArr(arrCandidates, sizeP, NULL, 1);
+        displayArr(arrCandidates, sizeP, NULL, 0);
         printf("\nVote for the candidate by ID : ");
         scanf(" %d", &arrVotes[index]);
         oneTimeVote[index] = true;
@@ -67,21 +71,24 @@ void main(){
     do{
         printf("This is the election of 2020 for president status.\nEnter the number of candidates : (minimum 5) ");
         scanf("%d", &sizeCand);
-        if(sizeCand < 5) printf("\nThe election can't be held for less than 5 president candidates.");
-    } while(sizeCand < 5);
+        if(sizeCand < 2) printf("\nThe election can't be held for less than 5 president candidates.");
+    } while(sizeCand < 2);
 
     do {
         printf("\nEnter the number of electors: "); //make it dynamic after having a working version
         scanf("%d", &sizeElec);
-        if(sizeElec < 10) printf("\nThe election can't be held having only 10 electors.");
-    }while (sizeElec < 10);
+        if(sizeElec < 4) printf("\nThe election can't be held having only 10 electors.");
+    }while (sizeElec < 4);
     //declare candidates array and electros array
     char arrCandidates[sizeCand][25];
     char arrElectors[sizeElec][10];
     int votesArr[sizeElec];
     //char** elecArr[3];
+
     populateDatabase(arrCandidates, sizeCand, 0);
+
     populateDatabase(arrElectors, sizeElec, 1);
+
     populateVotes(votesArr, arrElectors, arrCandidates, sizeElec, sizeCand);
 
     /*printf("\nAdresse of arr %d", &arr);
