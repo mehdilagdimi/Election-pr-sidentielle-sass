@@ -13,16 +13,16 @@ void displayArr(char arr[][25], int size, int votes[], int pd){
         printf("\n%d \t|\t%s", i,arr[i]);
     }
 }
-int searchIndexCIN(char str[10], char arrElectors[][10], int size){
+int searchIndexCIN(char str[10], char arrElectors[][25], int size){
     for(int i = 0; i < size; i++){
-        printf("char : %s | arr[%d] : %s\n", str, i, arrElectors[i]);
+        //rintf("char : %s | arr[%d] : %s\n", str, i, arrElectors[i]);
         if(!strcmp(str, arrElectors[i])) {
-            printf("\nComparaison result : %d", strcmp(str, arrElectors[i]));
+            //printf("\nComparaison result : %d", strcmp(str, arrElectors[i]));
             return i;}
     }
     return -1;
 }
-void populateVotes(int arrVotes[], char arrElectors[][10], char arrCandidates[][25], int sizeE, int sizeP){
+void populateVotes(int arrVotes[], char arrElectors[][25], char arrCandidates[][25], int sizeE, int sizeP){
     getch();
     system("cls");
     //displayArr(arrElectors, sizeE, NULL, 1);
@@ -34,7 +34,7 @@ void populateVotes(int arrVotes[], char arrElectors[][10], char arrCandidates[][
     for(i; i < sizeE ; i++){
        printf("\nEnter your CIN : ");
        scanf(" %s", str);
-       index = searchIndexCIN(&str, arrElectors, sizeE);
+       index = searchIndexCIN(str, &arrElectors[0], sizeE);
        if(index == -1) {
             printf("\nCIN not found. Try again");
             i--; //in case someone enters an invalid CIN the loop repeats the process of input so we need to decrement the i
@@ -81,7 +81,7 @@ void main(){
     }while (sizeElec < 4);
     //declare candidates array and electros array
     char arrCandidates[sizeCand][25];
-    char arrElectors[sizeElec][10];
+    char arrElectors[sizeElec][25];
     int votesArr[sizeElec];
     //char** elecArr[3];
 
